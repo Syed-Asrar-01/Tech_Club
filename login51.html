@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 0;
+        }
+
+        .container {
+            position: absolute;
+            width: 400px;
+            padding: 40px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #ff007f, #000);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+            z-index: 1;
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: scale(1.05);
+        }
+
+        .toggle-text {
+            margin-top: 15px;
+            color: #fff;
+        }
+
+        .toggle-text span {
+            color: #ffeb3b;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Airplane Animation */
+        .fly-away {
+            animation: foldAndFly 1.5s ease forwards;
+        }
+
+        @keyframes foldAndFly {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.3) rotate(45deg); opacity: 0.8; }
+            100% { transform: translate(500px, -500px) scale(0); opacity: 0; }
+        }
+
+        .appear {
+            animation: appear 1s ease-in-out forwards;
+        }
+
+        @keyframes appear {
+            from { opacity: 0; transform: scale(0.3) translate(-500px, 500px); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .signup-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Login Form -->
+    <div class="container login-container" id="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username" autocomplete="off" required>
+        <div class="password-container">
+            <input type="password" id="login-password" placeholder="Password" autocomplete="new-password" required>
+            <span class="toggle-password" onclick="togglePassword('login-password')">👁️</span>
+        </div>
+        <button onclick="login()">Login</button>
+        <p class="toggle-text">Don't have an account? <span onclick="switchToSignup()">Sign up</span></p>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="container signup-container" id="signup-container">
+        <h2>Sign Up</h2>
+        <input type="text" id="signup-username" placeholder="Username" autocomplete="off" required>
+        <input type="email" id="signup-email" placeholder="Email ID" autocomplete="off" required>
+        <input type="date" id="signup-dob" required>
+        <div class="password-container">
+            <input type="password" id="signup-password" placeholder="Password" autocomplete="new-password" required>
+            <span class="toggle-password" onclick="togglePassword('signup-password')">👁️</span>
+        </div>
+        <div class="password-container">
+            <input type="password" id="signup-confirm-password" placeholder="Confirm Password" autocomplete="new-password" required>
+            <span class="toggle-password" onclick="togglePassword('signup-confirm-password')">👁️</span>
+        </div>
+        <button onclick="signup()">Sign Up</button>
+        <p class="toggle-text">Already have an account? <span onclick="switchToLogin()">Login</span></p>
+    </div>
+
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.type = field.type === "password" ? "text" : "password";
+        }
+
+        function switchToSignup() {
+            let loginContainer = document.getElementById("login-container");
+            let signupContainer = document.getElementById("signup-container");
+
+            loginContainer.classList.add("fly-away");
+
+            setTimeout(() => {
+                loginContainer.style.display = "none";
+                signupContainer.style.display = "block";
+                signupContainer.classList.add("appear");
+            }, 1000);
+        }
+
+        function switchToLogin() {
+            let loginContainer = document.getElementById("login-container");
+            let signupContainer = document.getElementById("signup-container");
+
+            signupContainer.classList.add("fly-away");
+
+            setTimeout(() => {
+                signupContainer.style.display = "none";
+                loginContainer.style.display = "block";
+                loginContainer.classList.add("appear");
+            }, 1000);
+        }
+
+        function signup() {
+            const password = document.getElementById("signup-password").value;
+            const confirmPassword = document.getElementById("signup-confirm-password").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            alert("Signup successful! Please login.");
+            switchToLogin();
+        }
+
+        /* Particles.js Configuration */
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 250, "density": { "enable": true, "value_area": 800 } },
+                "color": { 
+                    "value": ["#ff007f", "#ffeb3b", "#00e676", "#03a9f4", "#ff5722", "#ff0000", "#00ffff", "#ffff00", "#ff1493"]
+                },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 1, "random": true },
+                "size": { "value": 8, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 6 } },
+                "move": { "enable": true, "speed": 5, "random": true, "out_mode": "out" },
+                "line_linked": { "enable": false }
+            },
+            "retina_detect": true
+        });
+    </script>
+
+</body>
+</html>

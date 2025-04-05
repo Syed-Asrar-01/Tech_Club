@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>StudyMate.AI</title>
+    <link rel="icon" href="assets/robo-1.png">
+  </head>
+  <body>
+    <nav>
+      <div class="nav__logo"><a href="#">Study<span class="Mate">Mate</span>.AI</a></div>
+      <ul class="nav__links">
+        <li class="link"><a href="#">Home</a></li>
+        <li class="link"><a href="#">About Us</a></li>
+        <li class="link"><a href="#">About Me</a></li>
+        <li class="link"><a href="#">
+          <label for="courses">Tools</label>
+          <select name="courses" id="courses">
+          <option value="html">Summerize Buddy</option>
+          <option value="css">Mind-Map Buddy</option>
+          <option value="javascript">Quiz Buddy</option>
+          </select>
+        </a></li>
+        <li class="link"><a href="login51.html" class="nav__btn"><span onclick="switchToSignup()">Log-in/Sign-up</span></a></li>
+      </ul>
+    </nav>
+    <section class="container">
+      <div class="content__container">
+        <h1>
+            Study Smarter, Not Harder!<br />
+          <span class="heading__1">Instant AI-Generated Notes &</span><br />
+          <span class="heading__2">Mind Maps for Effortless Learning</span>
+        </h1>
+        <p>
+            Struggling to take notes? Let AI do it for you! Convert any text, lecture, or book into clear, concise study notes and visual mind maps—so you can retain more, stress less, and ace your exams!
+        </p>
+        <form>
+          <input type="text" placeholder="Summerize Your Paragraph Here" />
+          <button type="submit">Summerize</button>
+        </form>
+      </div>
+      <div class="image__container">
+        <img src="assets/robo-2.png" alt="header" />
+        <img src="assets/robo-1.png" alt="header" />
+        <div class="image__content">
+          <ul>
+            <li>Hi there I am your StudyMate </li>
+            <li>Sign up now & get your first AI-generated study guide for FREE!</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <script>
+      function switchToSignup() {
+            let loginContainer = document.getElementById("login-container");
+            let signupContainer = document.getElementById("signup-container");
+
+            loginContainer.classList.add("fly-away");
+
+            setTimeout(() => {
+                loginContainer.style.display = "none";
+                signupContainer.style.display = "block";
+                signupContainer.classList.add("appear");
+            }, 1000);
+        }
+    </script>
+  </body>
+</html>
